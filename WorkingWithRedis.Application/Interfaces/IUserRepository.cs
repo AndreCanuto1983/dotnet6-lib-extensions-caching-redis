@@ -6,7 +6,7 @@ namespace Application.Interfaces
     {
         Task<UserModel> SetUser(UserModel user, CancellationToken cancellationToken);
         Task<UserModel> GetUser(Guid userId, CancellationToken cancellationToken);
-        Task<bool> UpdateUser(UserModel user, CancellationToken cancellationToken);
-        Task<bool> DeleteUser(Guid userId, CancellationToken cancellationToken);
+        Task UpdateUser(UserModel user, CancellationToken cancellationToken);
+        Task DeleteUser(Guid userId, CancellationToken cancellationToken);
     }
 }

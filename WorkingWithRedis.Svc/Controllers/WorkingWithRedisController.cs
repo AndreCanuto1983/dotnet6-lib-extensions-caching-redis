@@ -8,16 +8,11 @@ namespace WorkingWithRedis.Controllers
     [Route("api/v1/[controller]")]
     public class WorkingWithRedisController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        private readonly ILogger<WorkingWithRedisController> _logger;
+        private readonly IUserRepository _userRepository;       
 
-        public WorkingWithRedisController(
-            IUserRepository userRepository,
-            ILogger<WorkingWithRedisController> logger
-            )
+        public WorkingWithRedisController(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
-            _logger = logger;
+            _userRepository = userRepository;            
         }
 
         [HttpPost]
@@ -29,9 +24,6 @@ namespace WorkingWithRedis.Controllers
                 return BadRequest();
 
             var response = await _userRepository.SetUser(user, cancellationToken);
-
-            if (response == null)
-                return BadRequest();
 
             return Created("", response);
         }
@@ -62,10 +54,7 @@ namespace WorkingWithRedis.Controllers
             if (user.IsValid())
                 return BadRequest();
 
-            var response = await _userRepository.UpdateUser(user, cancellationToken);
-
-            if (!response)
-                return NotFound();
+            await _userRepository.UpdateUser(user, cancellationToken);
 
             return Ok();
         }
@@ -79,10 +68,7 @@ namespace WorkingWithRedis.Controllers
             if (userId == Guid.Empty)
                 return BadRequest();
 
-            var response = await _userRepository.DeleteUser(userId, cancellationToken);
-
-            if (!response)
-                return NotFound();
+            await _userRepository.DeleteUser(userId, cancellationToken);
 
             return Ok();
         }

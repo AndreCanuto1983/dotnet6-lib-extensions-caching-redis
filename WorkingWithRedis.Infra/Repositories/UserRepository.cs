@@ -24,10 +24,10 @@ namespace Application.Repositories
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(user.Id.ToString(), cancellationToken);                
+                var userObject = await _distributedCache.GetAsync(user.Id.ToString(), cancellationToken);
 
                 if (userObject != null)
-                    return null;
+                    throw new InvalidOperationException("Existing user");                    
 
                 string userJson = JsonSerializer.Serialize(user);
 
@@ -38,11 +38,11 @@ namespace Application.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "[UserRepository][SetUser]");
-                return null;
+                throw;
             }
         }
 
-        public async Task<UserModel> GetUser(Guid userId, CancellationToken cancellationToken)
+        public async Task<UserModel?> GetUser(Guid userId, CancellationToken cancellationToken)
         {
             try
             {
@@ -51,54 +51,45 @@ namespace Application.Repositories
                 if (userObject == null)
                     return null;
 
-                return JsonSerializer.Deserialize<UserModel>(userObject);                
+                return JsonSerializer.Deserialize<UserModel>(userObject);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "[UserRepository][GetUser]");
-                return null;
+                throw;
             }
         }
 
-        public async Task<bool> UpdateUser(UserModel user, CancellationToken cancellationToken)
+        public async Task UpdateUser(UserModel user, CancellationToken cancellationToken)
         {
             try
             {
                 var userObject = await _distributedCache.GetAsync(user.Id.ToString(), cancellationToken);
 
-                if (userObject == null)
-                    return false;
+                if (userObject != null)
+                {
+                    string userJson = JsonSerializer.Serialize(user);
 
-                string userJson = JsonSerializer.Serialize(user);
-
-                await _distributedCache.SetStringAsync(user.Id.ToString(), userJson, cancellationToken);
-
-                return true;
+                    await _distributedCache.SetStringAsync(user.Id.ToString(), userJson, cancellationToken);
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "[UserRepository][UpdateUser]");
-                return false;
+                throw;
             }
         }
 
-        public async Task<bool> DeleteUser(Guid userId, CancellationToken cancellationToken)
+        public async Task DeleteUser(Guid userId, CancellationToken cancellationToken)
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(userId.ToString(), cancellationToken);
-
-                if (userObject == null)
-                    return false;
-
                 await _distributedCache.RemoveAsync(userId.ToString(), cancellationToken);
-
-                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "[UserRepository][DeleteUser]");
-                return false;
+                throw;
             }
         }
     }
