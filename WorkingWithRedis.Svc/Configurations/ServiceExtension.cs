@@ -2,7 +2,7 @@
 
 namespace WorkingWithRedis.Configurations
 {
-    public static class ConfigurationExtension
+    public static class ServiceExtension
     {
         public static void Configurations(IServiceCollection services)
         {

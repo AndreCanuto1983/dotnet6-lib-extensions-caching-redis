@@ -2,7 +2,7 @@
 
 namespace WorkingWithRedis.Configurations
 {
-    public static class ConfigurateRedis
+    public static class Redis
     {
         public static void Configurations(WebApplicationBuilder builder)
         {

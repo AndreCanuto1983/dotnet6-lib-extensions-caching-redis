@@ -3,7 +3,7 @@ using Application.Repositories;
 
 namespace WorkingWithRedis.Configurations
 {
-    public class ConfigurateDependencyInjection
+    public class DependencyInjection
     {
         public static void Configurations(IServiceCollection services)
         {
