@@ -4,7 +4,7 @@ namespace WorkingWithRedis.Configurations
 {
     public static class Redis
     {
-        public static void Configurations(WebApplicationBuilder builder)
+        public static void RedisSettings(this WebApplicationBuilder builder)
         {
             var section = builder.Configuration.GetSection("RedisSettings");
             var configurations = section.Get<RedisSettings>();
@@ -14,8 +14,6 @@ namespace WorkingWithRedis.Configurations
                 options.InstanceName = configurations.Instance;
                 options.Configuration = configurations.Connection;
             });
-
-
         }
     }
 }

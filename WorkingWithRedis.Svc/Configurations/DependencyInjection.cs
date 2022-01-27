@@ -3,9 +3,9 @@ using Application.Repositories;
 
 namespace WorkingWithRedis.Configurations
 {
-    public class DependencyInjection
+    public static class DependencyInjection
     {
-        public static void Configurations(IServiceCollection services)
+        public static void DependencyInjectionSettings(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();            
         }
