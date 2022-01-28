@@ -29,6 +29,7 @@ namespace WorkingWithRedis.Controllers
         }
 
         [HttpGet("{userId}")]
+        [ResponseCache(CacheProfileName = "Default900")]
         [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status404NotFound)]

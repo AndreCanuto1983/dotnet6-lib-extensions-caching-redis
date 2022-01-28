@@ -2,7 +2,7 @@
 
 namespace WorkingWithRedis.Configurations
 {
-    public static class Redis
+    public static class RedisExtension
     {
         public static void RedisSettings(this WebApplicationBuilder builder)
         {

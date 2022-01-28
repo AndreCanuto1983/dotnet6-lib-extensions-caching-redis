@@ -10,7 +10,7 @@ namespace WorkingWithRedis.Configurations
                     .AddJsonOptions(options =>
                         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true)
                     .AddJsonOptions(options =>
-                        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault);
+                        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault);            
         }
     }
 }

@@ -1,4 +1,5 @@
 using WorkingWithRedis.Configurations;
+using WorkingWithRedis.Svc.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.RedisSettings();
 builder.Services.DependencyInjectionSettings();
 builder.Services.ServiceExtensionSettings();
+builder.Services.ControllerCacheSettings();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -21,6 +23,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseResponseCaching(); //using controller cache => ref line 10
 
 app.UseAuthorization();
 
