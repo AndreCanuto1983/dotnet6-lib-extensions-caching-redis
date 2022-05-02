@@ -20,24 +20,23 @@ namespace Application.Repositories
             _logger = logger;
         }
 
-        public async Task<UserModel> SetUser(UserModel user, CancellationToken cancellationToken)
+        public async Task SetUser(UserModel user, CancellationToken cancellationToken)
         {
             try
             {
                 var userObject = await _distributedCache.GetAsync(user.Id.ToString(), cancellationToken);
 
                 if (userObject != null)
-                    throw new InvalidOperationException("Existing user");                    
+                    throw new InvalidOperationException("Existing user");
 
-                string userJson = JsonSerializer.Serialize(user);
-
-                await _distributedCache.SetStringAsync(user.Id.ToString(), userJson, cancellationToken);
-
-                return user;
+                await _distributedCache.SetStringAsync(
+                    user.Id.ToString(),
+                    JsonSerializer.Serialize(user),
+                    cancellationToken);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "[UserRepository][SetUser]");
+                _logger.LogError($"[UserRepository][SetUser] => EXCEPTION: {ex}");
                 throw;
             }
         }
@@ -55,7 +54,7 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "[UserRepository][GetUser]");
+                _logger.LogError($"[UserRepository][GetUser] => EXCEPTION: {ex}");
                 throw;
             }
         }
@@ -67,15 +66,15 @@ namespace Application.Repositories
                 var userObject = await _distributedCache.GetAsync(user.Id.ToString(), cancellationToken);
 
                 if (userObject != null)
-                {
-                    string userJson = JsonSerializer.Serialize(user);
+                    await _distributedCache.SetStringAsync(
+                        user.Id.ToString(),
+                        JsonSerializer.Serialize(user),
+                        cancellationToken);
 
-                    await _distributedCache.SetStringAsync(user.Id.ToString(), userJson, cancellationToken);
-                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "[UserRepository][UpdateUser]");
+                _logger.LogError($"[UserRepository][UpdateUser] => EXCEPTION: {ex}");
                 throw;
             }
         }
@@ -88,7 +87,7 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "[UserRepository][DeleteUser]");
+                _logger.LogError($"[UserRepository][DeleteUser] => EXCEPTION: {ex}");
                 throw;
             }
         }

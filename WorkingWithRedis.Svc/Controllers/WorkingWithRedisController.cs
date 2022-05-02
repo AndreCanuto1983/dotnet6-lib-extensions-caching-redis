@@ -23,9 +23,9 @@ namespace WorkingWithRedis.Controllers
             if (user.IsValid())
                 return BadRequest();
 
-            var response = await _userRepository.SetUser(user, cancellationToken);
+            await _userRepository.SetUser(user, cancellationToken);
 
-            return Created("", response);
+            return Created("","");
         }
 
         [HttpGet("{userId}")]

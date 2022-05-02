@@ -1,4 +1,5 @@
 ﻿using Application.Models.Configurations;
+using StackExchange.Redis;
 
 namespace WorkingWithRedis.Configurations
 {
@@ -13,6 +14,11 @@ namespace WorkingWithRedis.Configurations
             {
                 options.InstanceName = configurations.Instance;
                 options.Configuration = configurations.Connection;
+                options.ConfigurationOptions = new ConfigurationOptions()
+                {
+                    ResponseTimeout = 10,
+                    ConnectRetry = 3
+                };
             });
         }
     }
