@@ -4,9 +4,9 @@ namespace Application.Interfaces
 {
     public interface IUserRepository
     {
-        Task SetUser(UserModel user, CancellationToken cancellationToken);
-        Task<UserModel> GetUser(string userId, CancellationToken cancellationToken);
-        Task UpdateUser(UserModel user, CancellationToken cancellationToken);
-        Task DeleteUser(string userId, CancellationToken cancellationToken);
+        Task SetUserAsync(UserModel user, CancellationToken cancellationToken);
+        Task<UserModel> GetUserAsync(string userId, CancellationToken cancellationToken);
+        Task UpdateUserAsync(UserModel user, CancellationToken cancellationToken);
+        Task DeleteUserAsync(string userId, CancellationToken cancellationToken);
     }
 }

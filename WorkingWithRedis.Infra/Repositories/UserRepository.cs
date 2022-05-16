@@ -20,7 +20,7 @@ namespace Application.Repositories
             _logger = logger;
         }
 
-        public async Task SetUser(UserModel user, CancellationToken cancellationToken)
+        public async Task SetUserAsync(UserModel user, CancellationToken cancellationToken)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Application.Repositories
             }
         }
 
-        public async Task<UserModel?> GetUser(string userId, CancellationToken cancellationToken)
+        public async Task<UserModel?> GetUserAsync(string userId, CancellationToken cancellationToken)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Application.Repositories
             }
         }
 
-        public async Task UpdateUser(UserModel user, CancellationToken cancellationToken)
+        public async Task UpdateUserAsync(UserModel user, CancellationToken cancellationToken)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Application.Repositories
             }
         }
 
-        public async Task DeleteUser(string userId, CancellationToken cancellationToken)
+        public async Task DeleteUserAsync(string userId, CancellationToken cancellationToken)
         {
             try
             {

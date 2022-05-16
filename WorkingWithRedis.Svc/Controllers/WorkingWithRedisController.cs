@@ -23,7 +23,7 @@ namespace WorkingWithRedis.Controllers
             if (user.IsValid())
                 return BadRequest();
 
-            await _userRepository.SetUser(user, cancellationToken);
+            await _userRepository.SetUserAsync(user, cancellationToken);
 
             return Created("","");
         }
@@ -38,7 +38,7 @@ namespace WorkingWithRedis.Controllers
             if (string.IsNullOrEmpty(userId))
                 return BadRequest();
 
-            var response = await _userRepository.GetUser(userId, cancellationToken);
+            var response = await _userRepository.GetUserAsync(userId, cancellationToken);
 
             if (response == null)
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WorkingWithRedis.Controllers
             if (user.IsValid())
                 return BadRequest();
 
-            await _userRepository.UpdateUser(user, cancellationToken);
+            await _userRepository.UpdateUserAsync(user, cancellationToken);
 
             return Ok();
         }
@@ -69,7 +69,7 @@ namespace WorkingWithRedis.Controllers
             if (string.IsNullOrEmpty(userId))
                 return BadRequest();
 
-            await _userRepository.DeleteUser(userId, cancellationToken);
+            await _userRepository.DeleteUserAsync(userId, cancellationToken);
 
             return Ok();
         }
