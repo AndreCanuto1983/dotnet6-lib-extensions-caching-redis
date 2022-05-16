@@ -33,9 +33,9 @@ namespace WorkingWithRedis.Controllers
         [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get(Guid userId, CancellationToken cancellationToken)
+        public async Task<IActionResult> Get(string userId, CancellationToken cancellationToken)
         {
-            if (userId == Guid.Empty)
+            if (string.IsNullOrEmpty(userId))
                 return BadRequest();
 
             var response = await _userRepository.GetUser(userId, cancellationToken);
@@ -64,9 +64,9 @@ namespace WorkingWithRedis.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(Guid userId, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(string userId, CancellationToken cancellationToken)
         {
-            if (userId == Guid.Empty)
+            if (string.IsNullOrEmpty(userId))
                 return BadRequest();
 
             await _userRepository.DeleteUser(userId, cancellationToken);

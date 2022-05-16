@@ -9,11 +9,11 @@ namespace Application.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IDistributedCache _distributedCache;
-        private readonly ILogger<IUserRepository> _logger;
+        private readonly ILogger<UserRepository> _logger;
 
         public UserRepository(
             IDistributedCache distributedCache,
-            ILogger<IUserRepository> logger
+            ILogger<UserRepository> logger
             )
         {
             _distributedCache = distributedCache;
@@ -24,28 +24,28 @@ namespace Application.Repositories
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(user.Id.ToString(), cancellationToken);
+                var userObject = await _distributedCache.GetAsync(user.Id, cancellationToken);
 
                 if (userObject != null)
                     throw new InvalidOperationException("Existing user");
 
                 await _distributedCache.SetStringAsync(
-                    user.Id.ToString(),
+                    user.Id,
                     JsonSerializer.Serialize(user),
                     cancellationToken);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][SetUser] => EXCEPTION: {ex}");
+                _logger.LogError($"[UserRepository][SetUser] => EXCEPTION: {ex.Message}");
                 throw;
             }
         }
 
-        public async Task<UserModel?> GetUser(Guid userId, CancellationToken cancellationToken)
+        public async Task<UserModel?> GetUser(string userId, CancellationToken cancellationToken)
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(userId.ToString(), cancellationToken);
+                var userObject = await _distributedCache.GetAsync(userId, cancellationToken);
 
                 if (userObject == null)
                     return null;
@@ -54,7 +54,7 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][GetUser] => EXCEPTION: {ex}");
+                _logger.LogError($"[UserRepository][GetUser] => EXCEPTION: {ex.Message}");
                 throw;
             }
         }
@@ -63,7 +63,7 @@ namespace Application.Repositories
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(user.Id.ToString(), cancellationToken);
+                var userObject = await _distributedCache.GetAsync(user.Id, cancellationToken);
 
                 if (userObject != null)
                     await _distributedCache.SetStringAsync(
@@ -74,20 +74,20 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][UpdateUser] => EXCEPTION: {ex}");
+                _logger.LogError($"[UserRepository][UpdateUser] => EXCEPTION: {ex.Message}");
                 throw;
             }
         }
 
-        public async Task DeleteUser(Guid userId, CancellationToken cancellationToken)
+        public async Task DeleteUser(string userId, CancellationToken cancellationToken)
         {
             try
             {
-                await _distributedCache.RemoveAsync(userId.ToString(), cancellationToken);
+                await _distributedCache.RemoveAsync(userId, cancellationToken);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][DeleteUser] => EXCEPTION: {ex}");
+                _logger.LogError($"[UserRepository][DeleteUser] => EXCEPTION: {ex.Message}");
                 throw;
             }
         }
