@@ -24,13 +24,13 @@ namespace Application.Repositories
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(user.Id, cancellationToken);
+                var userObject = await _distributedCache.GetAsync(user.cpfCnpj, cancellationToken);
 
                 if (userObject != null)
                     throw new InvalidOperationException("Existing user");
 
                 await _distributedCache.SetStringAsync(
-                    user.Id,
+                    user.cpfCnpj,
                     JsonSerializer.Serialize(user),
                     cancellationToken);
             }
@@ -41,11 +41,11 @@ namespace Application.Repositories
             }
         }
 
-        public async Task<UserModel?> GetUserAsync(string userId, CancellationToken cancellationToken)
+        public async Task<UserModel?> GetUserAsync(string key, CancellationToken cancellationToken)
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(userId, cancellationToken);
+                var userObject = await _distributedCache.GetAsync(key, cancellationToken);
 
                 if (userObject == null)
                     return null;
@@ -63,11 +63,11 @@ namespace Application.Repositories
         {
             try
             {
-                var userObject = await _distributedCache.GetAsync(user.Id, cancellationToken);
+                var userObject = await _distributedCache.GetAsync(user.cpfCnpj, cancellationToken);
 
                 if (userObject != null)
                     await _distributedCache.SetStringAsync(
-                        user.Id.ToString(),
+                        user.cpfCnpj,
                         JsonSerializer.Serialize(user),
                         cancellationToken);
 
@@ -79,11 +79,11 @@ namespace Application.Repositories
             }
         }
 
-        public async Task DeleteUserAsync(string userId, CancellationToken cancellationToken)
+        public async Task DeleteUserAsync(string key, CancellationToken cancellationToken)
         {
             try
             {
-                await _distributedCache.RemoveAsync(userId, cancellationToken);
+                await _distributedCache.RemoveAsync(key, cancellationToken);
             }
             catch (Exception ex)
             {
