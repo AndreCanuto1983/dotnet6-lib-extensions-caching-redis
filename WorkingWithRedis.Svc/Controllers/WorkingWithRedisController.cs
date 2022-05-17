@@ -18,6 +18,7 @@ namespace WorkingWithRedis.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(UserModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IActionResult), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Set(UserModel user, CancellationToken cancellationToken)
         {
             if (user.IsValid())
@@ -33,6 +34,7 @@ namespace WorkingWithRedis.Controllers
         [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IActionResult), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get(string cpfCnpj, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(cpfCnpj))
@@ -50,6 +52,7 @@ namespace WorkingWithRedis.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IActionResult), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Update(UserModel user, CancellationToken cancellationToken)
         {
             if (user.IsValid())
@@ -64,6 +67,7 @@ namespace WorkingWithRedis.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IActionResult), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IActionResult), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Delete(string cpfCnpj, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(cpfCnpj))
