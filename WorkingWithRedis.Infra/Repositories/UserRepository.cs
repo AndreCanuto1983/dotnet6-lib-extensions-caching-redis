@@ -36,7 +36,7 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][SetUserAsync] => EXCEPTION: {ex.Message}");
+                _logger.LogError("[UserRepository][SetUserAsync] => EXCEPTION: {ex.Message}", ex.Message);
                 throw;
             }
         }
@@ -54,7 +54,7 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][GetUserAsync] => EXCEPTION: {ex.Message}");
+                _logger.LogError("[UserRepository][GetUserAsync] => EXCEPTION: {ex.Message}", ex.Message);
                 throw;
             }
         }
@@ -74,7 +74,7 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][UpdateUserAsync] => EXCEPTION: {ex.Message}");
+                _logger.LogError("[UserRepository][UpdateUserAsync] => EXCEPTION: {ex.Message}", ex.Message);
                 throw;
             }
         }
@@ -87,7 +87,7 @@ namespace Application.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[UserRepository][DeleteUserAsync] => EXCEPTION: {ex.Message}");
+                _logger.LogError("[UserRepository][DeleteUserAsync] => EXCEPTION: {ex.Message}", ex.Message);
                 throw;
             }
         }
