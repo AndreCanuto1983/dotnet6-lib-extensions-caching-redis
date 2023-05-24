@@ -3,10 +3,10 @@ using WorkingWithRedis.Svc.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.RedisSettings();
-builder.Services.DependencyInjectionSettings();
-builder.Services.ServiceExtensionSettings();
-builder.Services.ControllerCacheSettings();
+builder.Redis();
+builder.Services.DependencyInjection();
+builder.Services.ConfigureJson();
+builder.Services.ControllerCache();
 builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapHealthChecks("/health");
+app.MapHealthChecks("/healthcheck");
 
 if (app.Environment.IsDevelopment())
 {

@@ -2,9 +2,9 @@
 
 namespace WorkingWithRedis.Svc.Configurations
 {
-    public static class ControllerCacheExtension
+    public static class ControllerCacheSettings
     {
-        public static void ControllerCacheSettings(this IServiceCollection services)
+        public static void ControllerCache(this IServiceCollection services)
         {
             services.AddResponseCaching();
 

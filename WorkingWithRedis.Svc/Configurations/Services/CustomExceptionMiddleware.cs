@@ -37,7 +37,6 @@ namespace WorkingWithRedis.Configurations.Services
                 });                       
 
             context.Response.StatusCode = statusCode;
-
             return context.Response.WriteAsync(result);
         }
     }

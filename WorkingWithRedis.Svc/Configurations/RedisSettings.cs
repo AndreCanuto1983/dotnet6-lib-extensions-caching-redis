@@ -3,12 +3,12 @@ using StackExchange.Redis;
 
 namespace WorkingWithRedis.Configurations
 {
-    public static class RedisExtension
+    public static class RedisSettings
     {
-        public static void RedisSettings(this WebApplicationBuilder builder)
+        public static void Redis(this WebApplicationBuilder builder)
         {
             var section = builder.Configuration.GetSection("RedisSettings");
-            var configurations = section.Get<RedisSettings>();
+            var configurations = section.Get<RedisConfigurations>();
 
             builder.Services.AddDistributedRedisCache(options =>
             {
